@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D playerRigidbody;
     Animator animator;
     float speed = 5.0f;
+    bool isGrounded;
 
     void Awake()
     {
@@ -33,13 +34,31 @@ public class PlayerController : MonoBehaviour
         }
 
         //player jump
-        if (Input.GetKeyDown(KeyCode.UpArrow) && this.playerRigidbody.velocity.y == 0)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
         {
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 5.0f);
+            Jump();
         }
 
-        animator.setBool("isRunning", horizontalInput != 0);
+        animator.SetBool("isRunning", horizontalInput != 0);
+        animator.SetBool("isGrounded", isGrounded);
     } 
+
+    //player jump
+    void Jump()
+    {
+        playerRigidbody.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+        isGrounded = false;
+        animator.SetTrigger("jumpTrigger");
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        //check if player is grounded
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
 }   
     
     
