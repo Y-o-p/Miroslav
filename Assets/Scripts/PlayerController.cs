@@ -15,8 +15,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
+
+        //player movement left and right
         playerRigidbody.velocity = new Vector2(horizontalInput * speed, playerRigidbody.velocity.y);
 
+        //flip player sprite when moving left and right
         if (horizontalInput > 0.01f)
         {
             transform.localScale = Vector2.one;
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector2(-1, 1);
         }
 
+        //player jump
         if (Input.GetKeyDown(KeyCode.Space) && this.playerRigidbody.velocity.y == 0)
         {
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 5.0f);
