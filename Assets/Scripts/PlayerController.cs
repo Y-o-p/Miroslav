@@ -14,7 +14,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        playerRigidbody.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, playerRigidbody.velocity.y);
+        float horizontalInput = Input.GetAxis("Horizontal");
+        playerRigidbody.velocity = new Vector2(horizontalInput * speed, playerRigidbody.velocity.y);
+
+        if (horizontalInput > 0.01f)
+        {
+            transform.localScale = Vector2.one;
+        }
+        else if (horizontalInput < -0.01f)
+        {
+            transform.localScale = new Vector2(-1, 1);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && this.playerRigidbody.velocity.y == 0)
         {
