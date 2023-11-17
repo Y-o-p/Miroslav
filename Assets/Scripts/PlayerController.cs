@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //player jump
-        if (Input.GetKeyDown(KeyCode.Space) && this.playerRigidbody.velocity.y == 0)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && this.playerRigidbody.velocity.y == 0)
         {
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 5.0f);
         }
