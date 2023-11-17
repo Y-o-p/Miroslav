@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D playerRigidbody;
-    float speed = 10.0f;
+    float speed = 5.0f;
 
     void Awake()
     {
@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         playerRigidbody.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, playerRigidbody.velocity.y);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 5.0f);
+        }
     } 
 }   
     
