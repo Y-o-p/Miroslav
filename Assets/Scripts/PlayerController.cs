@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D playerRigidbody;
+    Animator animator;
     float speed = 5.0f;
 
     void Awake()
     {
+        //get player rigidbody and animator
         playerRigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -34,6 +37,8 @@ public class PlayerController : MonoBehaviour
         {
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 5.0f);
         }
+
+        animator.setBool("isRunning", horizontalInput != 0);
     } 
 }   
     
