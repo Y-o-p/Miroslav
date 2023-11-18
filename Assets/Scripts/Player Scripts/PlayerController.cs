@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D playerRigidbody;
     Animator animator;
-    float speed = 5.0f;
-    bool isGrounded;
+    float speed = 5.0f; //player speed
+    bool isGrounded; //check if player is grounded
 
     public GameObject arrowPrefab;
     private GameObject arrow;
@@ -48,8 +48,8 @@ public class PlayerController : MonoBehaviour
             Invoke("SpawnArrow", 0.5f);
         }
 
-        animator.SetBool("isRunning", horizontalInput != 0);
-        animator.SetBool("isGrounded", isGrounded);
+        animator.SetBool("isRunning", horizontalInput != 0); //check if player is running
+        animator.SetBool("isGrounded", isGrounded); //check if player is grounded
     } 
 
     //player jump
@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("jumpTrigger");
     }
 
+    //spawn arrow
     void SpawnArrow()
     {
         arrow = Instantiate<GameObject>(arrowPrefab, transform.position, Quaternion.identity);
