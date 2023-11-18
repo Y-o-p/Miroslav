@@ -344,6 +344,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1975769126991585164, guid: 4ca67f2a8da55704b95bf99a7d8e47b5, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1975769126991585165, guid: 4ca67f2a8da55704b95bf99a7d8e47b5, type: 3}
       propertyPath: m_Name
       value: Valsorim
