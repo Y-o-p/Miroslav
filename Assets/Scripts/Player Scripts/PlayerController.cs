@@ -63,7 +63,12 @@ public class PlayerController : MonoBehaviour
     //spawn arrow
     void SpawnArrow()
     {
+        //create arrow
         arrow = Instantiate<GameObject>(arrowPrefab, transform.position, Quaternion.identity);
+
+        //set arrow direction
+        Vector2 arrowDirection = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+        arrow.GetComponent<PlayerArrow>().Initialize(arrowDirection);
     }
 
     void OnCollisionEnter2D(Collision2D collision)

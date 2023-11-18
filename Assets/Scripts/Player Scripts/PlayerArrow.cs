@@ -5,11 +5,18 @@ using UnityEngine;
 public class PlayerArrow : MonoBehaviour
 {
     public float speed = 10f; //arrow speed
+    private Vector3 direction; //arrow direction
+
+    //initialize arrow direction
+    public void Initialize(Vector2 initialDirection)
+    {
+        direction = initialDirection;
+    }
 
     private void Update()
     {
         //move arrow
-        transform.position += speed * Time.deltaTime * transform.right; 
+        transform.position += speed * Time.deltaTime * direction; 
     }
 
     //destroy arrow when it leaves the screen
