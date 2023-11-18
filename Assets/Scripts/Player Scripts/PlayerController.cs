@@ -1,0 +1,76 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    Rigidbody2D playerRigidbody;
+    Animator animator;
+    float speed = 5.0f;
+    bool isGrounded;
+
+    public GameObject arrowPrefab;
+    private GameObject arrow;
+
+    void Awake()
+    {
+        //get player rigidbody and animator
+        playerRigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        //player movement left and right
+        playerRigidbody.velocity = new Vector2(horizontalInput * speed, playerRigidbody.velocity.y);
+
+        //flip player sprite when moving left and right
+        if (horizontalInput > 0.01f)
+        {
+            transform.localScale = Vector2.one;
+        }
+        else if (horizontalInput < -0.01f)
+        {
+            transform.localScale = new Vector2(-1, 1);
+        }
+
+        //player jump
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
+        {
+            Jump();
+        }
+
+        // Shoot an arrow if the spacebar is pressed 
+        if ((Input.GetKeyDown(KeyCode.Space))) {
+            animator.SetTrigger("shootTrigger");
+            Invoke("SpawnArrow", 0.5f);
+        }
+
+        animator.SetBool("isRunning", horizontalInput != 0);
+        animator.SetBool("isGrounded", isGrounded);
+    } 
+
+    //player jump
+    void Jump()
+    {
+        playerRigidbody.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+        isGrounded = false;
+        animator.SetTrigger("jumpTrigger");
+    }
+
+    void SpawnArrow()
+    {
+        arrow = Instantiate<GameObject>(arrowPrefab, transform.position, Quaternion.identity);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        //check if player is grounded
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+}  
