@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - PArrow
+  - Enemy
   layers:
   - Default
   - TransparentFX
