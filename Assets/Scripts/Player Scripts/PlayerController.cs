@@ -80,7 +80,14 @@ public class PlayerController : MonoBehaviour
         //check if player is grounded
         if (collision.gameObject.CompareTag("Ground"))
         {
+            //the isGrounded flag is how we keep track of if the player is jumping or not.
+            //it is based on whether they are in contact with a game object tagged as "Ground".
+            //when you jump, we set isGrounded to false, and when you land, we set it to true.
             isGrounded = true;
+        }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            animator.SetTrigger("hurtTrigger");
         }
     }
 }  
