@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2184728619994032485}
   m_Layer: 0
   m_Name: PlayerArrow
-  m_TagString: Untagged
+  m_TagString: PArrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b28b75325c94964a44853cbe044a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
 --- !u!61 &2184728619994032484
 BoxCollider2D:
   m_ObjectHideFlags: 0

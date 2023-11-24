@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 2111174511931419227}
   - component: {fileID: 2111174511931419224}
   - component: {fileID: 2111174511931419225}
-  - component: {fileID: 2111174511931419230}
-  - component: {fileID: 2111174511931419231}
   - component: {fileID: 2111174511931419228}
   - component: {fileID: 2111174511931419229}
+  - component: {fileID: 5298184542844547050}
   m_Layer: 0
   m_Name: Miroslav
   m_TagString: Untagged
@@ -108,48 +107,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &2111174511931419230
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111174511931419218}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.07, y: 0.15}
-  serializedVersion: 2
-  m_Radius: 0.2
---- !u!61 &2111174511931419231
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111174511931419218}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.07, y: -0.19}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.73}
-    newSize: {x: 0.64, y: 0.73}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.35}
-  m_EdgeRadius: 0
 --- !u!114 &2111174511931419228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34474b66bd3064b178da64bfee6b4a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 2184728619994032486, guid: 9041e8d4d9b7648e9a108fbe1f0bb937, type: 3}
 --- !u!95 &2111174511931419229
 Animator:
   serializedVersion: 3
@@ -181,3 +139,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &5298184542844547050
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111174511931419218}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.03, y: -0.27}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 0.64, y: 0.73}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.45, y: 0.73}
+  m_EdgeRadius: 0

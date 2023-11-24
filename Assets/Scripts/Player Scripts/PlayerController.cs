@@ -64,7 +64,11 @@ public class PlayerController : MonoBehaviour
     void SpawnArrow()
     {
         //create arrow
-        arrow = Instantiate<GameObject>(arrowPrefab, transform.position, Quaternion.identity);
+        arrow = Instantiate<GameObject>(
+            arrowPrefab,
+            new Vector3(transform.position.x, transform.position.y - 0.25f, transform.position.z), 
+            Quaternion.identity
+        );
 
         //set arrow direction
         Vector2 arrowDirection = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
