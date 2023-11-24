@@ -85,5 +85,9 @@ public class PlayerController : MonoBehaviour
             //when you jump, we set isGrounded to false, and when you land, we set it to true.
             isGrounded = true;
         }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            animator.SetTrigger("hurtTrigger");
+        }
     }
 }  
