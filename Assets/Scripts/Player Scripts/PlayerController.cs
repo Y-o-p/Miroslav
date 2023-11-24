@@ -89,5 +89,10 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger("hurtTrigger");
         }
+        else if (collision.gameObject.CompareTag("EProjectile"))
+        {
+            animator.SetTrigger("hurtTrigger");
+            Destroy(collision.gameObject);
+        }
     }
 }  
