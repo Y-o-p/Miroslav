@@ -8,10 +8,13 @@ public class Valsorim : MonoBehaviour
 {
     public GameObject arrowPrefab;
     public GameObject player;
+    public Collider2D zone;
     Animator animator;
+    SpriteRenderer sprite;
     public float test = 0.0f;
-    string position_state = "Left";
+    string position_state = "Right";
     Dictionary<string, string[]> directions;
+    int attacks = 0;
 
     string GetNewPositionState(string direction) {
         return direction.Split(new string[] {"To"}, StringSplitOptions.None)[1];
@@ -20,6 +23,8 @@ public class Valsorim : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
+
         directions = new Dictionary<string, string[]>();
         directions.Add("Left", new string[] {"LeftToCenter"});
         directions.Add("Center", new string[] {"CenterToLeft", "CenterToRight"});
@@ -32,39 +37,36 @@ public class Valsorim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D)) {
-            animator.SetTrigger("CenterToRight");
-        }
-        if (Input.GetKeyDown(KeyCode.A)) {
-            animator.SetTrigger("CenterToLeft");
-        }
-        if (Input.GetKeyDown(KeyCode.W)) {
-            animator.SetTrigger("LeftToCenter");
-        }
-        if (Input.GetKeyDown(KeyCode.S)) {
-            animator.SetTrigger("RightToCenter");
-        }
-
         AnimatorClipInfo[] current_clip = animator.GetCurrentAnimatorClipInfo(0);
         string clip_name = current_clip[0].clip.name;
+
+        if (player.transform.position.x < transform.position.x) {
+            sprite.flipX = true;
+        }
+        else {
+            sprite.flipX = false;
+        }
     }
 
     void RandomAction() {
-        int action = UnityEngine.Random.Range(0, 2);
-        if (action == 0) {
+        if (attacks == 0) {
+            attacks = UnityEngine.Random.Range(3, 6);
             MoveRandom();
         }
-        else if (action == 1) {
+        else {
+            attacks--;
             AttackRandom();
         }
+        Debug.Log(attacks);
     }
 
     void AttackRandom() {
-        int attack = UnityEngine.Random.Range(0, 2);
-        if (attack == 0) {
+        float attack = UnityEngine.Random.Range(0.0f, 1.0f);
+        print("Attack: " + attack);
+        if (attack < 0.75) {
             animator.SetTrigger("Sniper");
         }
-        else if (attack == 1) {
+        else {
             animator.SetTrigger("TripleRainArrow");
         }
     }
@@ -86,14 +88,18 @@ public class Valsorim : MonoBehaviour
     }
 
     void FireRandomArrow() {
-        float randomX = UnityEngine.Random.Range(-10, 10);
-        for (int i = 0; i < 3; i++) {
-            Vector3 arrowPosition = new Vector3(transform.position.x + randomX + i, transform.position.y + 5.0f, transform.position.z);
+        for (int i = -1; i < 2; i++) {
+            Vector3 arrowPosition = new Vector3(player.transform.position.x + i, zone.bounds.max.y, transform.position.z);
             FireArrow(arrowPosition, -90.0f, 10.0f);
         }
     }
 
     void FireAtPlayer() {
-        FireArrow(transform.position, Vector3.Angle(transform.position, player.transform.position), 200.0f);
+        Vector3 dist = player.transform.position - transform.position;
+        float angle = Vector2.Angle(Vector2.right, dist);
+        if (dist.y < 0) {
+            angle = -angle;
+        }
+        FireArrow(transform.position, angle, 300.0f);
     }
 }

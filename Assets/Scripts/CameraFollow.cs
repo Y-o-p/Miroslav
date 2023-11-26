@@ -4,6 +4,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public GameObject target;
+    public GameObject target2;
     public GameObject zone;
     public float followSpeed = 1.0f;
     public float minY = -4.0f;
@@ -30,7 +31,10 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         Vector3 desiredPosition = target.transform.position;
-        if (target != null) {
+        if (target2 != null) {
+            desiredPosition = Vector3.Slerp(desiredPosition, target2.transform.position, 0.5f);
+        }
+        if (zone != null) {
             BoxCollider2D coll = zone.GetComponent<BoxCollider2D>();
             desiredPosition = new Vector3(
                 Mathf.Min(coll.bounds.max.x - size.x, Mathf.Max(coll.bounds.min.x + size.x, desiredPosition.x)),
