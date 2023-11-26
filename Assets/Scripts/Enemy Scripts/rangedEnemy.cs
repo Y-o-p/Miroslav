@@ -15,6 +15,7 @@ public class rangedEnemy : MonoBehaviour
     float attack;
     private GameObject projectile;
     public GameObject fireballPrefab;
+    public AudioSource orc_death_sound;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +61,7 @@ public class rangedEnemy : MonoBehaviour
             health = health - 5;
             if (health <= 0)
             {
+                orc_death_sound.Play(); 
                 dead = 1;
                 this.animator.SetTrigger("dTrigger");
             }
