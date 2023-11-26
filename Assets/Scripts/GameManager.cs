@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(currentScene.name+" Music ");
             title_song.Play();
-        }else if (currentScene.name == "Scene_1" && !game_over)
+        }else if (currentScene.name == "Game" && !game_over)
         {
             Debug.Log(currentScene.name + " Music ");
             battle_song.Play();
