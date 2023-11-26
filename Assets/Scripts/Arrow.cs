@@ -8,12 +8,14 @@ public class Arrow : MonoBehaviour
     public int damage = 1;
     public bool enemyArrow = false;
     Rigidbody2D body;
+    public AudioSource arrow_sound;
 
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         body.AddForce(transform.right * force);
+        arrow_sound.Play();
     }
 
     // Update is called once per frame

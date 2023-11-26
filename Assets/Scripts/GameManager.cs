@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     private Scene currentScene;
 
-    //public GameObject lose_panel;        
+    public GameObject lose_panel;        
     //public GameObject win_panel; 
     //public GameObject gameOverPanel;
 
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public AudioSource lose_song;           
     public AudioSource battle_song;          
     public AudioSource boss_song;
+    public AudioSource play_death_sound;
 
     //public Text objective;
     //public Text health;
@@ -95,11 +96,17 @@ public class GameManager : MonoBehaviour
 
 
     }
-
+    public void player_die()
+    {
+        play_death_sound.Play();
+        lose_panel.SetActive(true);
+        game_over = true;
+        update_song();
+    }
     // Displays current game state to hud
     private void UpdateHUD()
     {
-        //objective.text = "Go do the thing! ";
+        
 
     }
     void CheckActiveScene()

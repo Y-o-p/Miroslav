@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public GameObject arrowPrefab;
     private GameObject arrow;
 
+    public AudioSource jump_sound;
     void Awake()
     {
         //get player rigidbody and animator
@@ -23,35 +24,47 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-
-        //player movement left and right
-        playerRigidbody.velocity = new Vector2(horizontalInput * speed, playerRigidbody.velocity.y);
-
-        //flip player sprite when moving left and right
-        if (horizontalInput > 0.01f)
+        if (this != null)
         {
-            sprite.flipX = false;
-        }
-        else if (horizontalInput < -0.01f)
-        {
-            sprite.flipX = true;
-        }
+            float horizontalInput = Input.GetAxis("Horizontal");
 
-        //player jump
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
-        {
-            Jump();
-        }
+            //player movement left and right
+            playerRigidbody.velocity = new Vector2(horizontalInput * speed, playerRigidbody.velocity.y);
 
-        // Shoot an arrow if the spacebar is pressed 
-        if ((Input.GetKeyDown(KeyCode.Space))) {
-            animator.SetTrigger("shootTrigger");
-            Invoke("SpawnArrow", 0.5f);
-        }
+            //flip player sprite when moving left and right
+            if (horizontalInput > 0.01f)
+            {
+                sprite.flipX = false;
+            }
+            else if (horizontalInput < -0.01f)
+            {
+                sprite.flipX = true;
+            }
 
-        animator.SetBool("isRunning", horizontalInput != 0); //check if player is running
-        animator.SetBool("isGrounded", isGrounded); //check if player is grounded
+            //player jump
+            if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
+            {
+                Jump();
+            }
+
+            // Shoot an arrow if the spacebar is pressed 
+            if ((Input.GetKeyDown(KeyCode.Space)))
+            {
+                animator.SetTrigger("shootTrigger");
+                Invoke("SpawnArrow", 0.5f);
+            }
+
+            animator.SetBool("isRunning", horizontalInput != 0); //check if player is running
+            animator.SetBool("isGrounded", isGrounded); //check if player is grounded
+
+            if (transform.position.y < -9.0f)
+            {
+                GameManager.instance.player_die();
+                // Perform actions when the player is below 9 in the y value
+                Destroy(gameObject);
+
+            }
+        }
     } 
 
     //player jump
@@ -59,6 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         playerRigidbody.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
         isGrounded = false;
+        jump_sound.Play();
         animator.SetTrigger("jumpTrigger");
     }
 
