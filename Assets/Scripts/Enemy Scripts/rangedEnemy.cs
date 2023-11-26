@@ -5,7 +5,7 @@ using UnityEngine;
 public class rangedEnemy : MonoBehaviour
 {
     float health;
-    float speed = 1f;
+    float speed = 2f;
     Rigidbody2D rigid2D;
     Animator animator;
     float chanceToChangeDirections = 0.05f;
@@ -16,6 +16,7 @@ public class rangedEnemy : MonoBehaviour
     private GameObject projectile;
     public GameObject fireballPrefab;
     public AudioSource orc_death_sound;
+    public string newTag = "Untagged";
     // Start is called before the first frame update
     void Start()
     {
@@ -31,9 +32,9 @@ public class rangedEnemy : MonoBehaviour
         if (dead == 0 && attack == 0)
         {
             Vector3 pos = transform.position;
-            pos.x += speed * Time.deltaTime;
+            pos.x += speed/2 * Time.deltaTime;
             transform.position = pos;
-            transform.localScale = new Vector3(speed, 1, 1);
+            transform.localScale = new Vector3(speed, 2, 2);
         }
     }
 
@@ -64,6 +65,7 @@ public class rangedEnemy : MonoBehaviour
                 orc_death_sound.Play(); 
                 dead = 1;
                 this.animator.SetTrigger("dTrigger");
+                gameObject.tag = newTag;
             }
         }
     }
