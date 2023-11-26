@@ -5,7 +5,7 @@ using UnityEngine;
 public class basicEnemy : MonoBehaviour
 {
     float health;
-    float speed = 1f;
+    float speed = 1.5f;
     Rigidbody2D rigid2D;
     Animator animator;
     float chanceToChangeDirections = 0.02f;
@@ -20,10 +20,11 @@ public class basicEnemy : MonoBehaviour
     public AudioSource blue_death_sound;
     public AudioSource orc_death_sound;
 
+    public string newTag = "Untagged";
+
     // Start is called before the first frame update
     void Start()
     {
-        health = 15;
         dead = 0;
         this.animator = GetComponent<Animator>();
         check_name();
@@ -35,10 +36,20 @@ public class basicEnemy : MonoBehaviour
     {
         if (dead == 0)
         {
-            Vector3 pos = transform.position;
-            pos.x += speed * Time.deltaTime;
-            transform.position = pos;
-            transform.localScale = new Vector3(speed, 1, 1);
+            if (isOrc)
+            {
+                Vector3 pos = transform.position;
+                pos.x += speed/2f * Time.deltaTime;
+                transform.position = pos;
+                transform.localScale = new Vector3(speed, 2, 2);
+            }
+            else
+            {
+                Vector3 pos = transform.position;
+                pos.x += speed*0.66f * Time.deltaTime;
+                transform.position = pos;
+                transform.localScale = new Vector3(speed, 1.5f, 1.5f);
+            }
         }
     }
 
@@ -47,17 +58,21 @@ public class basicEnemy : MonoBehaviour
         if (gameObject.name==("bslimePrefab"))
         {
             // Alien 1 - Use moveSpeed
+            health = 10;
             isblue = true;
         }
         else if (gameObject.name==("rslimePrefab"))
         {
             // Alien 2 - Use moveSpeed2
+            health = 15;
             isred = true;
         }
         else if (gameObject.name==("morbPrefab"))
         {
             // Alien 2 - Use moveSpeed2
+            health = 20;
             isOrc = true;
+            speed = 2f;
         }
     }
     void FixedUpdate()
@@ -79,6 +94,7 @@ public class basicEnemy : MonoBehaviour
             {
                 dead = 1;
                 this.animator.SetTrigger("dTrigger");
+                gameObject.tag = newTag;
 
                 if (isblue)
                 {
