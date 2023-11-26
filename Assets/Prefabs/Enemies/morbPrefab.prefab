@@ -133,7 +133,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &2303995763588057640
 Animator:
   serializedVersion: 3
@@ -168,6 +168,7 @@ MonoBehaviour:
   red_death_sound: {fileID: 0}
   blue_death_sound: {fileID: 0}
   orc_death_sound: {fileID: -3147373789736798368}
+  newTag: Untagged
 --- !u!82 &-3147373789736798368
 AudioSource:
   m_ObjectHideFlags: 0

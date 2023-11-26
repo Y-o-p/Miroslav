@@ -7,7 +7,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D playerRigidbody;
     SpriteRenderer sprite;
     Animator animator;
-    public int health = 5;
+    public int health = 10;
+    int alive = 1;
+    int IFrame = 0;
     float speed = 5.0f; //player speed
     bool isGrounded; //check if player is grounded
 
@@ -42,13 +44,13 @@ public class PlayerController : MonoBehaviour
             }
 
             //player jump
-            if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
+            if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded && alive == 1)
             {
                 Jump();
             }
 
             // Shoot an arrow if the spacebar is pressed 
-            if ((Input.GetKeyDown(KeyCode.Space)))
+            if ((Input.GetKeyDown(KeyCode.Space)) && alive == 1)
             {
                 animator.SetTrigger("shootTrigger");
                 Invoke("SpawnArrow", 0.5f);
@@ -62,9 +64,14 @@ public class PlayerController : MonoBehaviour
                 health = 0;
             }
 
-            if (health <= 0) {
-                GameManager.player_die();
-                animator.SetTrigger("deadTrigger");
+            if (health <= 0) 
+            {
+                if (alive == 1)
+                {
+                    GameManager.player_die();
+                    animator.SetTrigger("deadTrigger");
+                    alive = 0;
+                }
             }
         }
     } 
@@ -94,20 +101,42 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Hurt(int damage) {
-        animator.SetTrigger("hurtTrigger");
-        health -= damage;
-        print(health);
+        if (IFrame == 0)
+        {
+            animator.SetTrigger("hurtTrigger");
+            health -= damage;
+            print(health);
+            IFrame = 1;
+            Invoke("IFramesEnd", 1f);
+        }
+    }
+
+    public void IFramesEnd()
+    {
+        IFrame = 0;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //check if player is grounded
-        if (collision.gameObject.CompareTag("Ground"))
+        if (alive == 1)
         {
-            //the isGrounded flag is how we keep track of if the player is jumping or not.
-            //it is based on whether they are in contact with a game object tagged as "Ground".
-            //when you jump, we set isGrounded to false, and when you land, we set it to true.
-            isGrounded = true;
+            //check if player is grounded
+            if (collision.gameObject.CompareTag("Ground"))
+            {
+                //the isGrounded flag is how we keep track of if the player is jumping or not.
+                //it is based on whether they are in contact with a game object tagged as "Ground".
+                //when you jump, we set isGrounded to false, and when you land, we set it to true.
+                isGrounded = true;
+            }
+            else if (collision.gameObject.CompareTag("Enemy"))
+            {
+                this.Hurt(1);
+            }
+            else if (collision.gameObject.CompareTag("EProjectile"))
+            {
+                this.Hurt(2);
+                Destroy(collision.gameObject);
+            }
         }
     }
 }  
