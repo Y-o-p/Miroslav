@@ -6,40 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    private static Scene currentScene;
 
-    private Scene currentScene;
-
-    public GameObject lose_panel;        
+    private static GameObject lose_panel;        
     //public GameObject win_panel; 
     //public GameObject gameOverPanel;
 
-    public AudioSource title_song;          
-    public AudioSource win_song;           
-    public AudioSource lose_song;           
-    public AudioSource battle_song;          
-    public AudioSource boss_song;
-    public AudioSource play_death_sound;
+    private static AudioSource title_song;          
+    private static AudioSource win_song;           
+    private static AudioSource lose_song;           
+    private static AudioSource battle_song;          
+    private static AudioSource boss_song;
+    private static AudioSource play_death_sound;
 
     //public Text objective;
     //public Text health;
 
-    private bool game_over = false;
-    private bool is_winner = false;
+    public static bool game_over = false;
+    public static bool is_winner = false;
 
-    // when awake ensure there is only one game manager called when spawned
-    private void Awake()
-    {
-        // Ensure that only one instance of GameManager exists
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +46,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void update_song()
+    static void update_song()
     {
         title_song.Stop();
         battle_song.Stop();
@@ -96,12 +81,13 @@ public class GameManager : MonoBehaviour
 
 
     }
-    public void player_die()
+    public static void player_die()
     {
-        play_death_sound.Play();
-        lose_panel.SetActive(true);
+        //play_death_sound.Play();
+        //lose_panel.SetActive(true);
         game_over = true;
-        update_song();
+        //update_song();
+        print("GAMEOVER");
     }
     // Displays current game state to hud
     private void UpdateHUD()
