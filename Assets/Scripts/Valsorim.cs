@@ -9,6 +9,7 @@ public class Valsorim : MonoBehaviour
     public GameObject arrowPrefab;
     public GameObject player;
     public Collider2D zone;
+    public Sprite defaultSprite;
     Animator animator;
     SpriteRenderer sprite;
     public float test = 0.0f;
@@ -31,7 +32,7 @@ public class Valsorim : MonoBehaviour
         directions.Add("Right", new string[] {"RightToCenter"});
 
         animator = GetComponent<Animator>();
-        animator.SetTrigger("Phase1");
+        animator.StopPlayback();
     }
 
     // Update is called once per frame
@@ -46,6 +47,11 @@ public class Valsorim : MonoBehaviour
         else {
             sprite.flipX = false;
         }
+    }
+
+    void Wake() {
+        sprite.sprite = defaultSprite;
+        sprite.color = new Color(0.1f, 0.1f, 0.1f);
     }
 
     void RandomAction() {

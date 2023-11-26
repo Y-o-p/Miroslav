@@ -117,4 +117,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 4831072056012879030, guid: ed35ff74965b7f545841cbc5aedafde3, type: 3}
   player: {fileID: 0}
+  zone: {fileID: 0}
   test: 0
