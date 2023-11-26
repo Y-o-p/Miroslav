@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D playerRigidbody;
+    SpriteRenderer sprite;
     Animator animator;
     float speed = 5.0f; //player speed
     bool isGrounded; //check if player is grounded
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
         //get player rigidbody and animator
         playerRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -29,11 +31,11 @@ public class PlayerController : MonoBehaviour
         //flip player sprite when moving left and right
         if (horizontalInput > 0.01f)
         {
-            transform.localScale = Vector2.one;
+            sprite.flipX = false;
         }
         else if (horizontalInput < -0.01f)
         {
-            transform.localScale = new Vector2(-1, 1);
+            sprite.flipX = true;
         }
 
         //player jump
@@ -71,7 +73,7 @@ public class PlayerController : MonoBehaviour
         );
 
         //set arrow direction
-        Vector2 arrowDirection = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+        Vector2 arrowDirection = !sprite.flipX ? Vector2.right : Vector2.left;
         arrow.GetComponent<PlayerArrow>().Initialize(arrowDirection);
     }
 
