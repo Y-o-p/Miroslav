@@ -49,6 +49,26 @@ public class Valsorim : MonoBehaviour
         string clip_name = current_clip[0].clip.name;
     }
 
+    void RandomAction() {
+        int action = UnityEngine.Random.Range(0, 2);
+        if (action == 0) {
+            MoveRandom();
+        }
+        else if (action == 1) {
+            AttackRandom();
+        }
+    }
+
+    void AttackRandom() {
+        int attack = UnityEngine.Random.Range(0, 2);
+        if (attack == 0) {
+            animator.SetTrigger("Sniper");
+        }
+        else if (attack == 1) {
+            animator.SetTrigger("TripleRainArrow");
+        }
+    }
+
     void MoveRandom() {
         string[] movements_possible = directions[position_state];
         string direction = movements_possible[UnityEngine.Random.Range(0, movements_possible.Length)];
@@ -66,7 +86,7 @@ public class Valsorim : MonoBehaviour
     }
 
     void FireRandomArrow() {
-        float randomX = UnityEngine.Random.Range(0, 5);
+        float randomX = UnityEngine.Random.Range(-10, 10);
         for (int i = 0; i < 3; i++) {
             Vector3 arrowPosition = new Vector3(transform.position.x + randomX + i, transform.position.y + 5.0f, transform.position.z);
             FireArrow(arrowPosition, -90.0f, 10.0f);
