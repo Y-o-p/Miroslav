@@ -5,7 +5,7 @@ public class CameraFollow : MonoBehaviour
 {
     public GameObject target;
     public GameObject target2;
-    public GameObject zone;
+    public BoxCollider2D zone;
     public float followSpeed = 1.0f;
     public float minY = -4.0f;
     public float yOffset = -1.5f;
@@ -35,10 +35,9 @@ public class CameraFollow : MonoBehaviour
             desiredPosition = Vector3.Slerp(desiredPosition, target2.transform.position, 0.5f);
         }
         if (zone != null) {
-            BoxCollider2D coll = zone.GetComponent<BoxCollider2D>();
             desiredPosition = new Vector3(
-                Mathf.Min(coll.bounds.max.x - size.x, Mathf.Max(coll.bounds.min.x + size.x, desiredPosition.x)),
-                Mathf.Min(coll.bounds.max.y - size.y, Mathf.Max(coll.bounds.min.y + size.y, desiredPosition.y)),
+                Mathf.Min(zone.bounds.max.x - size.x, Mathf.Max(zone.bounds.min.x + size.x, desiredPosition.x)),
+                Mathf.Min(zone.bounds.max.y - size.y, Mathf.Max(zone.bounds.min.y + size.y, desiredPosition.y)),
                 desiredPosition.z
             );
         }
