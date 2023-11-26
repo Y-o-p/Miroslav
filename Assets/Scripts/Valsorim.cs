@@ -14,6 +14,7 @@ public class Valsorim : MonoBehaviour
     SpriteRenderer sprite;
     public float test = 0.0f;
     string position_state = "Right";
+    string next_direction = "Left";
     Dictionary<string, string[]> directions;
     int attacks = 0;
 
@@ -49,11 +50,6 @@ public class Valsorim : MonoBehaviour
         }
     }
 
-    void Wake() {
-        sprite.sprite = defaultSprite;
-        sprite.color = new Color(0.1f, 0.1f, 0.1f);
-    }
-
     void RandomAction() {
         if (attacks == 0) {
             attacks = UnityEngine.Random.Range(3, 6);
@@ -78,11 +74,25 @@ public class Valsorim : MonoBehaviour
     }
 
     void MoveRandom() {
-        string[] movements_possible = directions[position_state];
-        string direction = movements_possible[UnityEngine.Random.Range(0, movements_possible.Length)];
+        string direction = "";
+        if (position_state == "Right") {
+            direction = "RightToCenter";
+        }
+        else if (position_state == "Left") {
+            direction = "LeftToCenter";
+        }
+        else if (position_state == "Center") {
+            if (next_direction == "Left") {
+                next_direction = "Right";
+                direction = "CenterToLeft";
+            }
+            else {
+                next_direction = "Left";
+                direction = "CenterToRight";
+            }
+        }
         animator.SetTrigger(direction);
         position_state = GetNewPositionState(direction);
-        print(position_state);
     }
 
     void FireArrow(Vector3 position, float rotation, float force) {
@@ -101,7 +111,7 @@ public class Valsorim : MonoBehaviour
     }
 
     void FireAtPlayer() {
-        Vector3 dist = player.transform.position - transform.position;
+        Vector3 dist = player.transform.position + new Vector3(0, 0.5f) - transform.position;
         float angle = Vector2.Angle(Vector2.right, dist);
         if (dist.y < 0) {
             angle = -angle;

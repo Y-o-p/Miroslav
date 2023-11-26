@@ -6,7 +6,6 @@ public class Arrow : MonoBehaviour
 {
     public float force = 500.0f;
     public int damage = 1;
-    public bool enemyArrow = false;
     Rigidbody2D body;
     public AudioSource arrow_sound;
 
@@ -25,9 +24,8 @@ public class Arrow : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other) {
-        GameObject obj = other.gameObject;
-        if ((obj.tag == "Enemy" && !enemyArrow) || (obj.tag == "Player" && enemyArrow)) {
-            print("Damaged entity for " + damage);
+        if (other.gameObject.tag == "Player") {
+            other.gameObject.GetComponent<PlayerController>().Hurt(damage);
         }
         Destroy(gameObject);
     }

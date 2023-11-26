@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D playerRigidbody;
     SpriteRenderer sprite;
     Animator animator;
+    public int health = 5;
     float speed = 5.0f; //player speed
     bool isGrounded; //check if player is grounded
 
@@ -24,8 +25,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (this != null)
-        {
+        if (!GameManager.game_over) {
             float horizontalInput = Input.GetAxis("Horizontal");
 
             //player movement left and right
@@ -59,10 +59,12 @@ public class PlayerController : MonoBehaviour
 
             if (transform.position.y < -9.0f)
             {
-                GameManager.instance.player_die();
-                // Perform actions when the player is below 9 in the y value
-                Destroy(gameObject);
+                health = 0;
+            }
 
+            if (health <= 0) {
+                GameManager.player_die();
+                animator.SetTrigger("deadTrigger");
             }
         }
     } 
@@ -91,6 +93,12 @@ public class PlayerController : MonoBehaviour
         arrow.GetComponent<PlayerArrow>().Initialize(arrowDirection);
     }
 
+    public void Hurt(int damage) {
+        animator.SetTrigger("hurtTrigger");
+        health -= damage;
+        print(health);
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         //check if player is grounded
@@ -100,15 +108,6 @@ public class PlayerController : MonoBehaviour
             //it is based on whether they are in contact with a game object tagged as "Ground".
             //when you jump, we set isGrounded to false, and when you land, we set it to true.
             isGrounded = true;
-        }
-        else if (collision.gameObject.CompareTag("Enemy"))
-        {
-            animator.SetTrigger("hurtTrigger");
-        }
-        else if (collision.gameObject.CompareTag("EProjectile"))
-        {
-            animator.SetTrigger("hurtTrigger");
-            Destroy(collision.gameObject);
         }
     }
 }  
