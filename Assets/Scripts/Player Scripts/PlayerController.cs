@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject arrowPrefab;
     private GameObject arrow;
+    public GameObject lose_panel;
 
     public AudioSource jump_sound;
     public AudioSource coin_sound;
@@ -56,13 +57,13 @@ public class PlayerController : MonoBehaviour
             }
 
             //player jump
-            if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded && alive == 1)
+            if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
             {
                 Jump();
             }
 
             // Shoot an arrow if the spacebar is pressed 
-            if ((Input.GetKeyDown(KeyCode.Space)) && alive == 1)
+            if ((Input.GetKeyDown(KeyCode.Space)))
             {
                 if (arrowCoolDown <= 0)
                 {
@@ -85,8 +86,6 @@ public class PlayerController : MonoBehaviour
                 if (alive == 1)
                 {
                     player_die();
-                    animator.SetTrigger("deadTrigger");
-                    alive = 0;
                 }
             }
         }
@@ -130,17 +129,29 @@ public class PlayerController : MonoBehaviour
 
     void player_die()
     {
-        //GameManager.game_over = true;
+        GameManager.lives -= 1;
+        if (GameManager.lives == 0)
+        {
+            GameManager.game_over = true;
+            GameManager.lives = 3;
+        }
         death_sound.Play();
-        //lose_panel.SetActive(true);
+        animator.SetTrigger("deadTrigger");
+        alive = 0;
+        lose_panel.SetActive(true);
         //update_song();
-        print("GAMEOVER");
+        //respawn();
+    }
+    public void respawn()
+    {
         //heal player back to max hp.
         health = 10;
         //respawns player at checkpoint
+        lose_panel.SetActive(false);
         playerRigidbody.transform.position = GameManager.respawnPoint;
         GameManager.score = 0;
-
+        animator.SetTrigger("respawnTrigger");
+        alive = 1;
     }
 
     public void IFramesEnd()
@@ -186,7 +197,7 @@ public class PlayerController : MonoBehaviour
             //Checks if flag has been touched. If touched, does not save or play sfx
             if (collision.gameObject.GetComponent<if_touched>().touched == false)
             {
-                GameManager.respawnPoint = playerRigidbody.transform.position;
+                GameManager.respawnPoint = collision.transform.position;
                 save_sound.Play();
                 collision.gameObject.GetComponent<if_touched>().touched = true;
             }

@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     public static bool game_over = false;
     public static bool is_winner = false;
+    public static int lives = 3;
 
 
     // Start is called before the first frame update
