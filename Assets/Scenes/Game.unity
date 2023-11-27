@@ -795,7 +795,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 149141405892818924, guid: 46186079044f616478c356843c314e27, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 149141405892818924, guid: 46186079044f616478c356843c314e27, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3400,6 +3400,10 @@ PrefabInstance:
       value: Miroslav
       objectReference: {fileID: 0}
     - target: {fileID: 2111174511931419218, guid: 05407b60efac1480abcd47101eb73cf2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111174511931419218, guid: 05407b60efac1480abcd47101eb73cf2, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
@@ -4082,6 +4086,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 499908736}
     m_Modifications:
+    - target: {fileID: 8016725227826028845, guid: 8a0ea45f31e97cf46b310fe61fb3e3a3, type: 3}
+      propertyPath: miroslavObject
+      value: 
+      objectReference: {fileID: 767777176}
     - target: {fileID: 8886504723216710857, guid: 8a0ea45f31e97cf46b310fe61fb3e3a3, type: 3}
       propertyPath: m_Name
       value: rorbPrefab (2)
@@ -4489,8 +4497,8 @@ Transform:
   - {fileID: 51285774}
   - {fileID: 712161147}
   - {fileID: 1262316819}
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 499908736}
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1504643546
 PrefabInstance:
@@ -5249,6 +5257,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 499908736}
     m_Modifications:
+    - target: {fileID: 8016725227826028845, guid: 8a0ea45f31e97cf46b310fe61fb3e3a3, type: 3}
+      propertyPath: miroslavObject
+      value: 
+      objectReference: {fileID: 767777176}
     - target: {fileID: 8886504723216710857, guid: 8a0ea45f31e97cf46b310fe61fb3e3a3, type: 3}
       propertyPath: m_Name
       value: rorbPrefab (1)

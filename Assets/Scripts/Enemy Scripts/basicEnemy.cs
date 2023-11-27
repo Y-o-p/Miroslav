@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class basicEnemy : MonoBehaviour
 {
-    float health;
+    public float health;
     float speed = 1.5f;
     Rigidbody2D rigid2D;
     Animator animator;
@@ -55,19 +55,19 @@ public class basicEnemy : MonoBehaviour
 
     private void check_name()
     {
-        if (gameObject.name==("bslimePrefab"))
+        if (gameObject.name.Contains("bslimePrefab"))
         {
             // Alien 1 - Use moveSpeed
             health = 10;
             isblue = true;
         }
-        else if (gameObject.name==("rslimePrefab"))
+        else if (gameObject.name.Contains("rslimePrefab"))
         {
             // Alien 2 - Use moveSpeed2
             health = 15;
             isred = true;
         }
-        else if (gameObject.name==("morbPrefab"))
+        else if (gameObject.name.Contains("morbPrefab"))
         {
             // Alien 2 - Use moveSpeed2
             health = 20;
@@ -95,6 +95,7 @@ public class basicEnemy : MonoBehaviour
                 dead = 1;
                 this.animator.SetTrigger("dTrigger");
                 gameObject.tag = newTag;
+                gameObject.layer = 7;
 
                 if (isblue)
                 {

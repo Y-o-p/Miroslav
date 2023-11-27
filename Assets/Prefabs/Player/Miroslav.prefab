@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 2111174511931419229}
   - component: {fileID: 8322961973859485850}
   - component: {fileID: 2489340271006844411}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Miroslav
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34474b66bd3064b178da64bfee6b4a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 5
   arrowPrefab: {fileID: 2184728619994032486, guid: 9041e8d4d9b7648e9a108fbe1f0bb937, type: 3}
   jump_sound: {fileID: 2489340271006844411}
 --- !u!95 &2111174511931419229

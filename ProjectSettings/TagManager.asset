@@ -10,12 +10,11 @@ TagManager:
   - Enemy
   - EProjectile
   - LCollision
-  - RCollision
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Enemy

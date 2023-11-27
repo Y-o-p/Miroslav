@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class rangedEnemy : MonoBehaviour
 {
-    float health;
+    public float health;
     float speed = 2f;
     Rigidbody2D rigid2D;
     Animator animator;
@@ -73,6 +73,7 @@ public class rangedEnemy : MonoBehaviour
                 dead = 1;
                 this.animator.SetTrigger("dTrigger");
                 gameObject.tag = newTag;
+                gameObject.layer = 7;
             }
         }
     }
