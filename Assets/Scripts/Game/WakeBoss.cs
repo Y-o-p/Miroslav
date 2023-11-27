@@ -5,7 +5,8 @@ using UnityEngine;
 public class WakeBoss : MonoBehaviour
 {
     public Valsorim boss;
-    public Camera camera;
+    public Camera cam;
+    public AudioClip boss_music;
     
     // Start is called before the first frame update
     void Start()
@@ -21,9 +22,13 @@ public class WakeBoss : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        // Player has triggered the boss battle
         if (other.gameObject.tag == "Player") {
-            camera.GetComponent<CameraFollow>().target2 = boss.gameObject;
+            cam.GetComponent<CameraFollow>().target2 = boss.gameObject;
             boss.GetComponent<Animator>().SetTrigger("Phase1");
+            AudioSource music = GameObject.Find("MusicBox").GetComponent<AudioSource>();
+            music.clip = boss_music;
+            music.Play();
         }
     }
 }
