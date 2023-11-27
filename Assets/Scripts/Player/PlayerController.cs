@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public GameObject arrowPrefab;
     private GameObject arrow;
     public GameObject lose_panel;
+    public Camera cam;
 
     public AudioSource jump_sound;
     public AudioSource coin_sound;
@@ -155,6 +156,7 @@ public class PlayerController : MonoBehaviour
         GameManager.score = 0;
         animator.SetTrigger("respawnTrigger");
         alive = 1;
+        cam.GetComponent<CameraFollow>().ResetPositionOnTarget();
     }
 
     public void IFramesEnd()

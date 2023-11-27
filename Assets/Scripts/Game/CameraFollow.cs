@@ -19,6 +19,12 @@ public class CameraFollow : MonoBehaviour
         );
     }
 
+    public void ResetPositionOnTarget() {
+        zone = null;
+        target2 = null;
+        oldPosition = target.transform.position;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
