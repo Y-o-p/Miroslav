@@ -148,6 +148,7 @@ public class PlayerController : MonoBehaviour
         health = 10;
         //respawns player at checkpoint
         lose_panel.SetActive(false);
+        playerRigidbody.velocity = new Vector2(0, 0);
         playerRigidbody.transform.position = GameManager.respawnPoint;
         GameManager.score = 0;
         animator.SetTrigger("respawnTrigger");
