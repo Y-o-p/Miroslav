@@ -5,7 +5,6 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     public float force = 500.0f;
-    public int damage = 1;
     Rigidbody2D body;
     public AudioSource arrow_sound;
 
@@ -24,9 +23,7 @@ public class Arrow : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.tag == "Player") {
-            other.gameObject.GetComponent<PlayerController>().Hurt(damage);
-        }
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Ground"))
         Destroy(gameObject);
     }
 }
