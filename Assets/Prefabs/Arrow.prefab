@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4831072056012879026}
   - component: {fileID: 4831072056012879027}
   - component: {fileID: -6134316290955197014}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arrow
   m_TagString: EProjectile
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.48, y: 0.1}
+  m_Size: {x: 0.3, y: 0.43}
   m_EdgeRadius: 0
 --- !u!114 &4831072056012879027
 MonoBehaviour:
@@ -146,8 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 500
-  damage: 1
-  enemyArrow: 0
   arrow_sound: {fileID: -6134316290955197014}
 --- !u!82 &-6134316290955197014
 AudioSource:

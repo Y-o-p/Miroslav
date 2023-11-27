@@ -43,9 +43,6 @@ public class Valsorim : MonoBehaviour
     void Update()
     {
         if (!GameManager.is_winner) {
-            AnimatorClipInfo[] current_clip = animator.GetCurrentAnimatorClipInfo(0);
-            string clip_name = current_clip[0].clip.name;
-
             if (player.transform.position.x < transform.position.x) {
                 sprite.flipX = true;
             }
@@ -56,6 +53,16 @@ public class Valsorim : MonoBehaviour
             if (health <= 0) {
                 Death();
             }
+
+            if (!GameManager.player_alive) {
+                Wait();
+            }
+        }
+    }
+
+    public void Wait() {
+        if (position_state != "Center") {
+            MoveRandom();
         }
     }
 
@@ -66,20 +73,20 @@ public class Valsorim : MonoBehaviour
     }
 
     void RandomAction() {
-        if (attacks == 0) {
-            attacks = UnityEngine.Random.Range(3, 6);
-            MoveRandom();
+        if (GameManager.player_in_arena) {
+            if (attacks == 0) {
+                attacks = UnityEngine.Random.Range(3, 6);
+                MoveRandom();
+            }
+            else {
+                attacks--;
+                AttackRandom();
+            }
         }
-        else {
-            attacks--;
-            AttackRandom();
-        }
-        Debug.Log(attacks);
     }
 
     void AttackRandom() {
         float attack = UnityEngine.Random.Range(0.0f, 1.0f);
-        print("Attack: " + attack);
         if (attack < 0.75) {
             animator.SetTrigger("Sniper");
         }
@@ -126,7 +133,7 @@ public class Valsorim : MonoBehaviour
     }
 
     void FireAtPlayer() {
-        Vector3 dist = player.transform.position + new Vector3(0, 0.5f) - transform.position;
+        Vector3 dist = player.transform.position - transform.position;
         float angle = Vector2.Angle(Vector2.right, dist);
         if (dist.y < 0) {
             angle = -angle;
@@ -138,7 +145,7 @@ public class Valsorim : MonoBehaviour
     {
         if (other.gameObject.tag == "PArrow" && health > 0) {
             health -= 1;
-            print("heatlh of the boss:" + health);
+            Destroy(other.gameObject);
         }
     }
 }

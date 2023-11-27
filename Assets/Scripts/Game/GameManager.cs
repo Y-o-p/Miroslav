@@ -7,32 +7,30 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static Scene currentScene;
-
     private static GameObject lose_panel;
-    //public GameObject win_panel; 
-    //public GameObject gameOverPanel;
-    public static int score = 0;
-    public static Vector2 respawnPoint;
     private static AudioSource play_death_sound;
-
-    //public Text objective;
-    //public Text health;
 
     public static bool game_over = false;
     public static bool is_winner = false;
     public static int lives = 3;
-
+    public static int score = 0;
+    public static bool player_in_arena = false;
+    public static bool player_alive = true;
+    public static Vector2 respawnPoint;
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Game Manager started");
-        //UpdateHUD();
-        //Hides pannels
-        //lose_panel.SetActive(false);
-        //win_panel.SetActive(false);
+    }
 
-
+    public static void Reset() {
+        game_over = false;
+        is_winner = false;
+        player_in_arena = false;
+        player_alive = true;
+        lives = 3;
+        score = 0;
     }
 
     // Update is called once per frame

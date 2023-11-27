@@ -23,7 +23,7 @@ public class Arrow : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Player"))
         Destroy(gameObject);
     }
 }
