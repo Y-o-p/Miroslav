@@ -56,6 +56,16 @@ public class Valsorim : MonoBehaviour
             if (health <= 0) {
                 Death();
             }
+
+            if (!GameManager.player_alive) {
+                Wait();
+            }
+        }
+    }
+
+    public void Wait() {
+        if (position_state != "Center") {
+            MoveRandom();
         }
     }
 
@@ -66,20 +76,20 @@ public class Valsorim : MonoBehaviour
     }
 
     void RandomAction() {
-        if (attacks == 0) {
-            attacks = UnityEngine.Random.Range(3, 6);
-            MoveRandom();
+        if (GameManager.player_in_arena) {
+            if (attacks == 0) {
+                attacks = UnityEngine.Random.Range(3, 6);
+                MoveRandom();
+            }
+            else {
+                attacks--;
+                AttackRandom();
+            }
         }
-        else {
-            attacks--;
-            AttackRandom();
-        }
-        Debug.Log(attacks);
     }
 
     void AttackRandom() {
         float attack = UnityEngine.Random.Range(0.0f, 1.0f);
-        print("Attack: " + attack);
         if (attack < 0.75) {
             animator.SetTrigger("Sniper");
         }
@@ -138,7 +148,7 @@ public class Valsorim : MonoBehaviour
     {
         if (other.gameObject.tag == "PArrow" && health > 0) {
             health -= 1;
-            print("heatlh of the boss:" + health);
+            Destroy(other.gameObject);
         }
     }
 }

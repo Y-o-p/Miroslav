@@ -21,6 +21,7 @@ public class BossArena : MonoBehaviour
     {
         if (other.gameObject.tag == "Player") {
             camera.GetComponent<CameraFollow>().zone = GetComponent<BoxCollider2D>();
+            GameManager.player_in_arena = true;
         }
     }
 }

@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer sprite;
     Animator animator;
     public int health = 10;
-    int alive = 1;
     int IFrame = 0;
     float speed = 5.0f; //player speed
     bool isGrounded; //check if player is grounded
@@ -37,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.game_over) {
+        if (!GameManager.game_over && GameManager.player_alive) {
             float horizontalInput = Input.GetAxis("Horizontal");
             if(arrowCoolDown >= 0)
             {
@@ -84,10 +83,7 @@ public class PlayerController : MonoBehaviour
 
             if (health <= 0) 
             {
-                if (alive == 1)
-                {
-                    player_die();
-                }
+                player_die();
             }
         }
     } 
@@ -133,7 +129,8 @@ public class PlayerController : MonoBehaviour
         GameManager.lives -= 1;
         death_sound.Play();
         animator.SetTrigger("deadTrigger");
-        alive = 0;
+        GameManager.player_in_arena = false;
+        GameManager.player_alive = false;
         if (GameManager.lives == 0)
         {
             GameManager.game_over = true;
@@ -155,7 +152,7 @@ public class PlayerController : MonoBehaviour
         playerRigidbody.transform.position = GameManager.respawnPoint;
         GameManager.score = 0;
         animator.SetTrigger("respawnTrigger");
-        alive = 1;
+        GameManager.player_alive = true;
         cam.GetComponent<CameraFollow>().ResetPositionOnTarget();
     }
 
@@ -166,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (alive == 1)
+        if (GameManager.player_alive)
         {
             //check if player is grounded
             if (collision.gameObject.CompareTag("Ground"))

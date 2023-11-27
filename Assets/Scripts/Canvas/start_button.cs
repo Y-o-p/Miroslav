@@ -10,7 +10,6 @@ public class start_button : MonoBehaviour
     {
         // Load the Game Scene
         SceneManager.LoadScene("Game");
-        GameManager.lives = 3;
-        GameManager.game_over = false;
+        GameManager.Reset();
     }
 }
