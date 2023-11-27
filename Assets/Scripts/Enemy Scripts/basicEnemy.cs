@@ -100,15 +100,18 @@ public class basicEnemy : MonoBehaviour
                 if (isblue)
                 {
                     blue_death_sound.Play();
+                    GameManager.score += 100;
 
                 }
                 else if (isred)
                 {
                     red_death_sound.Play();
+                    GameManager.score += 200;
                 }
                 else if (isOrc)
                 {
                     orc_death_sound.Play();
+                    GameManager.score += 300;
                 }
             }
         }
