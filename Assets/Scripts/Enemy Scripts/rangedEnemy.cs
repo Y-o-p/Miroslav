@@ -11,12 +11,15 @@ public class rangedEnemy : MonoBehaviour
     float chanceToChangeDirections = 0.05f;
     float dead;
     float delta;
+    float ranged;
     float chancetoAttack = 0.01f;
     float attack;
     private GameObject projectile;
     public GameObject fireballPrefab;
     public AudioSource orc_death_sound;
     public string newTag = "Untagged";
+    public GameObject miroslavObject;
+    public float distance;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +27,17 @@ public class rangedEnemy : MonoBehaviour
         dead = 0;
         attack = 0;
         this.animator = GetComponent<Animator>();
+        GameObject miroslavObject = GameObject.Find("Miroslav");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (dead == 0 && attack == 0)
+        distance = Mathf.Abs(this.transform.position.x - miroslavObject.transform.position.x);
+        ranged = 1;
+        if (dead == 0 && attack == 0 && distance <= 15)
         {
+            ranged = 0;
             Vector3 pos = transform.position;
             pos.x += speed/2 * Time.deltaTime;
             transform.position = pos;
@@ -40,12 +47,12 @@ public class rangedEnemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Random.value < chanceToChangeDirections && dead == 0)
+        if (Random.value < chanceToChangeDirections && dead == 0 && ranged == 0)
         {
             speed *= -1;
         }
 
-        if (Random.value < chancetoAttack && dead == 0 && attack == 0)
+        if (Random.value < chancetoAttack && dead == 0 && attack == 0 && ranged == 0)
         {
             this.animator.SetTrigger("aTrigger");
             Invoke("spawnFireball", 1f);

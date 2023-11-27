@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5862372871362200637}
   - component: {fileID: -8683738235301771437}
   - component: {fileID: 3815867152744629873}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: fireballPrefab
   m_TagString: EProjectile
   m_Icon: {fileID: 0}

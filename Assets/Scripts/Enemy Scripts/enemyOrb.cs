@@ -6,8 +6,8 @@ public class enemyOrb : MonoBehaviour
 {
     
     public float speed = 2f;
-    private Vector3 direction; 
-
+    private Vector3 direction;
+    float delta;
     //initialize projectile direction
     public void Initialize(Vector2 initialDirection)
     {
@@ -18,11 +18,10 @@ public class enemyOrb : MonoBehaviour
     {
         //move projectile
         transform.position += speed * Time.deltaTime * direction;
-    }
-
-    //destroy projectile when it leaves the screen
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
+        this.delta += Time.deltaTime;
+        if(this.delta >= 6)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
