@@ -17,12 +17,16 @@ public class PlayerController : MonoBehaviour
     private GameObject arrow;
 
     public AudioSource jump_sound;
+    public AudioSource coin_sound;
+    public AudioSource save_sound;
+
     void Awake()
     {
         //get player rigidbody and animator
         playerRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        GameManager.respawnPoint = playerRigidbody.transform.position;
     }
 
     void Update()
@@ -68,7 +72,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (alive == 1)
                 {
-                    GameManager.player_die();
+                    player_die();
                     animator.SetTrigger("deadTrigger");
                     alive = 0;
                 }
@@ -111,6 +115,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void player_die()
+    {
+        //GameManager.game_over = true;
+        //play_death_sound.Play();
+        //lose_panel.SetActive(true);
+        //update_song();
+        print("GAMEOVER");
+        //heal player back to max hp.
+        health = 10;
+        playerRigidbody.transform.position = GameManager.respawnPoint;
+        GameManager.score = 0;
+
+    }
+
     public void IFramesEnd()
     {
         IFrame = 0;
@@ -137,6 +155,21 @@ public class PlayerController : MonoBehaviour
                 this.Hurt(2);
                 Destroy(collision.gameObject);
             }
+        }
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Logic for coin collision
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            Destroy(collision.gameObject);
+            GameManager.score += 100;
+            coin_sound.Play();
+        }
+        else if (collision.gameObject.CompareTag("CheckPoint"))
+        {
+            GameManager.respawnPoint = playerRigidbody.transform.position;
+            save_sound.Play();
         }
     }
 }  

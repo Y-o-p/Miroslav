@@ -8,14 +8,16 @@ public class GameManager : MonoBehaviour
 {
     private static Scene currentScene;
 
-    private static GameObject lose_panel;        
+    private static GameObject lose_panel;
     //public GameObject win_panel; 
     //public GameObject gameOverPanel;
+    public static int score = 0;
+    public static Vector2 respawnPoint;
 
-    private static AudioSource title_song;          
-    private static AudioSource win_song;           
-    private static AudioSource lose_song;           
-    private static AudioSource battle_song;          
+    private static AudioSource title_song;
+    private static AudioSource win_song;
+    private static AudioSource lose_song;
+    private static AudioSource battle_song;
     private static AudioSource boss_song;
     private static AudioSource play_death_sound;
 
@@ -80,14 +82,6 @@ public class GameManager : MonoBehaviour
 
 
 
-    }
-    public static void player_die()
-    {
-        //play_death_sound.Play();
-        //lose_panel.SetActive(true);
-        game_over = true;
-        //update_song();
-        print("GAMEOVER");
     }
     // Displays current game state to hud
     private void UpdateHUD()
