@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     public float followSpeed = 1.0f;
     public float minY = -4.0f;
     public float yOffset = -1.5f;
-    Vector3 oldPosition;
+    Vector3 oldPosition = Vector3.zero;
     Vector2 size;
     
     Vector2 GetCameraSize() {
@@ -23,8 +23,6 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         size = GetCameraSize(); 
-        print(size);
-        oldPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -41,7 +39,7 @@ public class CameraFollow : MonoBehaviour
                 desiredPosition.z
             );
         }
-        oldPosition = new Vector3(oldPosition.x, Mathf.Max(oldPosition.y, minY), oldPosition.z);
+        desiredPosition = new Vector3(desiredPosition.x, Mathf.Max(desiredPosition.y, minY), desiredPosition.z);
         oldPosition = Vector3.Slerp(oldPosition, desiredPosition, Time.deltaTime * followSpeed);
         transform.position = new Vector3(
             oldPosition.x,
