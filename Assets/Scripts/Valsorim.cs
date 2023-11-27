@@ -10,6 +10,7 @@ public class Valsorim : MonoBehaviour
     public GameObject player;
     public Collider2D zone;
     public Sprite defaultSprite;
+    Rigidbody2D body;
     Animator animator;
     SpriteRenderer sprite;
     public float test = 0.0f;
@@ -17,6 +18,7 @@ public class Valsorim : MonoBehaviour
     string next_direction = "Left";
     Dictionary<string, string[]> directions;
     int attacks = 0;
+    public int health = 30;
 
     string GetNewPositionState(string direction) {
         return direction.Split(new string[] {"To"}, StringSplitOptions.None)[1];
@@ -25,6 +27,7 @@ public class Valsorim : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        body = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
 
         directions = new Dictionary<string, string[]>();
@@ -39,15 +42,27 @@ public class Valsorim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AnimatorClipInfo[] current_clip = animator.GetCurrentAnimatorClipInfo(0);
-        string clip_name = current_clip[0].clip.name;
+        if (!GameManager.is_winner) {
+            AnimatorClipInfo[] current_clip = animator.GetCurrentAnimatorClipInfo(0);
+            string clip_name = current_clip[0].clip.name;
 
-        if (player.transform.position.x < transform.position.x) {
-            sprite.flipX = true;
+            if (player.transform.position.x < transform.position.x) {
+                sprite.flipX = true;
+            }
+            else {
+                sprite.flipX = false;
+            }
+
+            if (health <= 0) {
+                Death();
+            }
         }
-        else {
-            sprite.flipX = false;
-        }
+    }
+
+    public void Death() {
+        GameManager.is_winner = true;
+        body.bodyType = RigidbodyType2D.Dynamic;
+        animator.Play("Death");
     }
 
     void RandomAction() {
@@ -117,5 +132,13 @@ public class Valsorim : MonoBehaviour
             angle = -angle;
         }
         FireArrow(transform.position, angle, 300.0f);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "PArrow" && health > 0) {
+            health -= 1;
+            print("heatlh of the boss:" + health);
+        }
     }
 }
