@@ -43,9 +43,6 @@ public class Valsorim : MonoBehaviour
     void Update()
     {
         if (!GameManager.is_winner) {
-            AnimatorClipInfo[] current_clip = animator.GetCurrentAnimatorClipInfo(0);
-            string clip_name = current_clip[0].clip.name;
-
             if (player.transform.position.x < transform.position.x) {
                 sprite.flipX = true;
             }
@@ -136,7 +133,7 @@ public class Valsorim : MonoBehaviour
     }
 
     void FireAtPlayer() {
-        Vector3 dist = player.transform.position + new Vector3(0, 0.5f) - transform.position;
+        Vector3 dist = player.transform.position - transform.position;
         float angle = Vector2.Angle(Vector2.right, dist);
         if (dist.y < 0) {
             angle = -angle;
