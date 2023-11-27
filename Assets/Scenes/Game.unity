@@ -1262,7 +1262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &347230864
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12749,6 +12749,7 @@ MonoBehaviour:
   boss: {fileID: 356919594}
   cam: {fileID: 1888470054}
   boss_music: {fileID: 8300000, guid: e4715a534cab59e4f8e08f1794dcf902, type: 3}
+  boss_hp: {fileID: 347230863}
 --- !u!61 &2037803587
 BoxCollider2D:
   m_ObjectHideFlags: 0

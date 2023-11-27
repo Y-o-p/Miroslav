@@ -7,6 +7,7 @@ public class WakeBoss : MonoBehaviour
     public Valsorim boss;
     public Camera cam;
     public AudioClip boss_music;
+    public GameObject boss_hp;
     
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class WakeBoss : MonoBehaviour
             AudioSource music = GameObject.Find("MusicBox").GetComponent<AudioSource>();
             music.clip = boss_music;
             music.Play();
+            boss_hp.SetActive(true);
         }
     }
 }
