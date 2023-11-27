@@ -74,6 +74,7 @@ public class rangedEnemy : MonoBehaviour
                 this.animator.SetTrigger("dTrigger");
                 gameObject.tag = newTag;
                 gameObject.layer = 7;
+                GameManager.score += 500;
             }
         }
     }

@@ -13,12 +13,16 @@ public class PlayerController : MonoBehaviour
     float speed = 5.0f; //player speed
     bool isGrounded; //check if player is grounded
 
+    private float arrowCoolDown = 0.5f;
+
     public GameObject arrowPrefab;
     private GameObject arrow;
 
     public AudioSource jump_sound;
     public AudioSource coin_sound;
     public AudioSource save_sound;
+    public AudioSource grunt_sound;
+    public AudioSource death_sound;
 
     void Awake()
     {
@@ -33,6 +37,10 @@ public class PlayerController : MonoBehaviour
     {
         if (!GameManager.game_over) {
             float horizontalInput = Input.GetAxis("Horizontal");
+            if(arrowCoolDown >= 0)
+            {
+                arrowCoolDown -= Time.deltaTime;
+            }
 
             //player movement left and right
             playerRigidbody.velocity = new Vector2(horizontalInput * speed, playerRigidbody.velocity.y);
@@ -56,8 +64,12 @@ public class PlayerController : MonoBehaviour
             // Shoot an arrow if the spacebar is pressed 
             if ((Input.GetKeyDown(KeyCode.Space)) && alive == 1)
             {
-                animator.SetTrigger("shootTrigger");
-                Invoke("SpawnArrow", 0.5f);
+                if (arrowCoolDown <= 0)
+                {
+                    animator.SetTrigger("shootTrigger");
+                    Invoke("SpawnArrow", 0.5f);
+                    arrowCoolDown = 0.5f;
+                }
             }
 
             animator.SetBool("isRunning", horizontalInput != 0); //check if player is running
@@ -112,18 +124,20 @@ public class PlayerController : MonoBehaviour
             print(health);
             IFrame = 1;
             Invoke("IFramesEnd", 1f);
+            grunt_sound.Play();
         }
     }
 
     void player_die()
     {
         //GameManager.game_over = true;
-        //play_death_sound.Play();
+        death_sound.Play();
         //lose_panel.SetActive(true);
         //update_song();
         print("GAMEOVER");
         //heal player back to max hp.
         health = 10;
+        //respawns player at checkpoint
         playerRigidbody.transform.position = GameManager.respawnPoint;
         GameManager.score = 0;
 
@@ -166,10 +180,16 @@ public class PlayerController : MonoBehaviour
             GameManager.score += 100;
             coin_sound.Play();
         }
+        //when u reach a check point
         else if (collision.gameObject.CompareTag("CheckPoint"))
         {
-            GameManager.respawnPoint = playerRigidbody.transform.position;
-            save_sound.Play();
+            //Checks if flag has been touched. If touched, does not save or play sfx
+            if (collision.gameObject.GetComponent<if_touched>().touched == false)
+            {
+                GameManager.respawnPoint = playerRigidbody.transform.position;
+                save_sound.Play();
+                collision.gameObject.GetComponent<if_touched>().touched = true;
+            }
         }
     }
 }  
