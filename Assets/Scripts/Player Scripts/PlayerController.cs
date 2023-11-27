@@ -130,17 +130,19 @@ public class PlayerController : MonoBehaviour
     void player_die()
     {
         GameManager.lives -= 1;
+        death_sound.Play();
+        animator.SetTrigger("deadTrigger");
+        alive = 0;
         if (GameManager.lives == 0)
         {
             GameManager.game_over = true;
             GameManager.lives = 3;
         }
-        death_sound.Play();
-        animator.SetTrigger("deadTrigger");
-        alive = 0;
-        lose_panel.SetActive(true);
+        else
+        {
+            lose_panel.SetActive(true);
+        }
         //update_song();
-        //respawn();
     }
     public void respawn()
     {
