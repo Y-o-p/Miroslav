@@ -14,6 +14,7 @@ public class Arrow : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         body.AddForce(transform.right * force);
         arrow_sound.Play();
+        Destroy(gameObject, 5);
     }
 
     // Update is called once per frame
